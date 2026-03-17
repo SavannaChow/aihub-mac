@@ -1,7 +1,5 @@
 package com.foss.aihub.ui.webview
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
@@ -13,7 +11,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.core.content.ContextCompat
 import com.foss.aihub.MainActivity
 import com.foss.aihub.models.AiService
 import com.foss.aihub.utils.buildBlockedPage
@@ -21,6 +18,7 @@ import java.io.ByteArrayInputStream
 
 
 class ProgressTrackingWebViewClient(
+    val context: MainActivity,
     private val onProgressUpdate: (Int) -> Unit,
     private val onLoadingStateChange: (Boolean) -> Unit,
     private val service: AiService,
@@ -79,14 +77,13 @@ class ProgressTrackingWebViewClient(
     override fun shouldInterceptRequest(
         view: WebView?, request: WebResourceRequest?,
     ): WebResourceResponse? {
-        if (!WebViewSecurity.isBlockingEnabled) return null
         val url = request?.url?.toString() ?: return null
         if (!WebViewSecurity.allowConnectivityForService(service.id, url)) {
             Log.d("AI_HUB", "🚫 Blocked for ${service.name}: $url")
             return WebResourceResponse(
                 "text/html",
                 "UTF-8",
-                ByteArrayInputStream(buildBlockedPage(url, service).toByteArray())
+                ByteArrayInputStream(buildBlockedPage(context, url, service).toByteArray())
             )
         }
         return null
@@ -95,7 +92,6 @@ class ProgressTrackingWebViewClient(
     override fun shouldOverrideUrlLoading(
         view: WebView?, request: WebResourceRequest?
     ): Boolean {
-        if (!WebViewSecurity.isBlockingEnabled) return false
         val service = view?.tag as? AiService ?: return false
         val url = request?.url?.toString() ?: return false
 
@@ -129,24 +125,11 @@ open class ProgressTrackingWebChromeClient(
     }
 
     override fun onPermissionRequest(request: PermissionRequest) {
-        Log.d("AI_HUB", "WebView requesting permission for: ${request.resources.joinToString()}")
+        val resources = request.resources
+        Log.d("AI_HUB", "WebView requesting permission for: ${resources.joinToString()}")
 
-        if (request.resources.contains(PermissionRequest.RESOURCE_AUDIO_CAPTURE)) {
-            activity.runOnUiThread {
-                if (ContextCompat.checkSelfPermission(
-                        activity, Manifest.permission.RECORD_AUDIO
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    Log.d("AI_HUB", "Microphone permission already granted, granting to WebView")
-                    request.grant(request.resources)
-                } else {
-                    Log.d("AI_HUB", "Requesting microphone permission for WebView")
-                    activity.requestMicrophonePermissionForWebView(request)
-                }
-            }
-        } else {
-            request.deny()
-            Log.d("AI_HUB", "Denied non-microphone permission request")
+        activity.runOnUiThread {
+            activity.requestWebViewPermissions(request)
         }
     }
 }
