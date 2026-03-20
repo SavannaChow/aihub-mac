@@ -7,19 +7,26 @@ assignees: SilentCoderHere
 
 ---
 
-**Add New AI Request**
+### **Add New AI Request**
 
-**AI Name:** 
-......
+**AI Name:**
+...
 
-**Website / Chat URL:**  
+**Website / Chat URL:**
 https://...
 
-**Login needed?**  
-[Yes/No] 
+**Login Required:**
+Yes / No
 
-**Why add it?** (short reason) 
-.... 
+**Reason for Adding (short):**
+...
 
-**I've checked the app — this AI is not added yet**  
-- [x] Yes, confirmed
+⚠️ **Eligibility Criteria:**
+
+* Must mainly work as a chatbot
+* Chat interface should be the main feature
+
+**Verification:**
+
+* [ ] This AI is a chatbot
+* [x] I have checked — this AI is not already listed
