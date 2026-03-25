@@ -30,9 +30,7 @@
     <string name="action_star">सितारा</string>
     <string name="action_update">अपडेट करें</string>
     <string name="action_update_services">AI और सेवाएं अपडेट करें</string>
-    <string name="app_author" translatable="false">Silent Coder</string>
     <string name="app_logo_description">AI हब लोगो</string>
-    <string name="app_name" translatable="false">AI Hub</string>
     <string name="app_tagline">आपका AI साथी संग्रह</string>
     <string name="copy_link_description">लिंक को क्लिपबोर्ड पर कॉपी करें</string>
     <string name="error_desc_http_error">%1$s ने त्रुटि %2$d लौटाई</string>
@@ -83,7 +81,6 @@
     <string name="label_something_went_wrong">कुछ गड़बड़ हो गई</string>
     <string name="label_unknown_error">अज्ञात त्रुटि</string>
     <string name="label_url">URL</string>
-    <string name="matrix" translatable="false">Matrix</string>
     <string name="msg_add_to_fav">पसंदीदा में जोड़ें</string>
     <string name="msg_ai_update_success">AI सेवाएं अपडेट हो गईं</string>
     <string name="msg_all_data_cleared">सभी डेटा साफ़ हो गए</string>

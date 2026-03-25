@@ -30,9 +30,7 @@
     <string name="action_star">Estrella</string>
     <string name="action_update">Actualizar</string>
     <string name="action_update_services">Actualizar IA y servicios</string>
-    <string name="app_author" translatable="false">Silent Coder</string>
     <string name="app_logo_description">Logo de AI Hub</string>
-    <string name="app_name" translatable="false">AI Hub</string>
     <string name="app_tagline">Tu colección complementaria de IA</string>
     <string name="copy_link_description">Copiar enlace al portapapeles</string>
     <string name="error_desc_http_error">%1$s devolvió un error %2$d</string>
@@ -83,7 +81,6 @@
     <string name="label_something_went_wrong">Algo ha salido mal</string>
     <string name="label_unknown_error">Error desconocido</string>
     <string name="label_url">URL</string>
-    <string name="matrix" translatable="false">Matrix</string>
     <string name="msg_add_to_fav">Añadir a favoritos</string>
     <string name="msg_ai_update_success">Servicios de IA actualizados</string>
     <string name="msg_all_data_cleared">Todos los datos eliminados</string>
