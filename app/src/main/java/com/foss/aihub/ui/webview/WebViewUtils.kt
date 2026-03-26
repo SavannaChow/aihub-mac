@@ -15,6 +15,7 @@ import com.foss.aihub.R
 import com.foss.aihub.models.AiService
 import com.foss.aihub.models.AppSettings
 import com.foss.aihub.models.LinkType
+import com.foss.aihub.ui.webview.DownloadHandler.handleDownload
 import com.foss.aihub.utils.USER_AGENT_DESKTOP
 import com.foss.aihub.utils.USER_AGENT_MOBILE
 import com.foss.aihub.utils.cleanTrackingParams
@@ -32,6 +33,13 @@ fun createWebViewForService(
     onError: (Int, String) -> Unit
 ): WebView {
     return WebView(context).apply {
+        addJavascriptInterface(BlobDownloadInterface(context), "AndroidBlobHandler")
+        addJavascriptInterface(ShareInterface(context), "AndroidWebShare")
+
+        setDownloadListener { url, userAgent, contentDisposition, mimeType, _ ->
+            handleDownload(this@apply, url, userAgent, contentDisposition, mimeType)
+        }
+
         layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
         )
@@ -61,9 +69,7 @@ fun createWebViewForService(
                 WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE -> {
                     val url = result.extra ?: return@setOnLongClickListener false
                     onLinkLongPress(
-                        url,
-                        context.getString(R.string.label_image_link),
-                        LinkType.IMAGE
+                        url, context.getString(R.string.label_image_link), LinkType.IMAGE
                     )
                     true
                 }
@@ -77,9 +83,7 @@ fun createWebViewForService(
                 WebView.HitTestResult.EMAIL_TYPE -> {
                     val email = result.extra ?: return@setOnLongClickListener false
                     onLinkLongPress(
-                        "mailto:$email",
-                        context.getString(R.string.label_email),
-                        LinkType.EMAIL
+                        "mailto:$email", context.getString(R.string.label_email), LinkType.EMAIL
                     )
                     true
                 }
@@ -87,9 +91,7 @@ fun createWebViewForService(
                 WebView.HitTestResult.PHONE_TYPE -> {
                     val phone = result.extra ?: return@setOnLongClickListener false
                     onLinkLongPress(
-                        "tel:$phone",
-                        context.getString(R.string.label_phone),
-                        LinkType.PHONE
+                        "tel:$phone", context.getString(R.string.label_phone), LinkType.PHONE
                     )
                     true
                 }

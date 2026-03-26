@@ -1,7 +1,6 @@
 package com.foss.aihub.ui.screens
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.webkit.WebView
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,7 +64,6 @@ import com.foss.aihub.utils.openInExternalBrowser
 import com.foss.aihub.utils.shareLink
 import kotlinx.coroutines.launch
 
-@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("LocalContextGetResourceValueCall", "UnrememberedMutableState")
 @Composable
 fun AiHubApp(activity: MainActivity) {

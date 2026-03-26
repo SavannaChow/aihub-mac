@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.foss.aihub"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 8
         versionName = "2.1.0"

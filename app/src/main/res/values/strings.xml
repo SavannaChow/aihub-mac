@@ -1,4 +1,12 @@
 <resources>
+    <!-- App Info -->
+    <string name="app_name" translatable="false">AI Hub</string>
+    <string name="app_author" translatable="false">Silent Coder</string>
+    <string name="matrix" translatable="false">Matrix</string>
+    <string name="app_logo_description">AI Hub Logo</string>
+    <string name="app_tagline">Your AI Companion Collection</string>
+
+    <!-- Actions -->
     <string name="action_back">Back</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_clear">Clear</string>
@@ -30,11 +38,13 @@
     <string name="action_star">Star</string>
     <string name="action_update">Update</string>
     <string name="action_update_services">Update AI &amp; services</string>
-    <string name="app_author" translatable="false">Silent Coder</string>
-    <string name="app_logo_description">AI Hub Logo</string>
-    <string name="app_name" translatable="false">AI Hub</string>
-    <string name="app_tagline">Your AI Companion Collection</string>
+
+    <!-- Copy & Share Descriptions -->
     <string name="copy_link_description">Copy link to clipboard</string>
+    <string name="open_in_browser_description">Open in external browser</string>
+    <string name="share_link_description">Share via other apps</string>
+
+    <!-- Error Messages -->
     <string name="error_desc_http_error">%1$s returned error %2$d</string>
     <string name="error_desc_no_connection">Can\'t reach %1$s. Check your internet connection.</string>
     <string name="error_desc_ssl_issue">Can\'t securely connect to %1$s. Possible certificate or security problem.</string>
@@ -45,6 +55,8 @@
     <string name="error_title_security_issue">Security Issue</string>
     <string name="error_title_server_error">Server Error</string>
     <string name="error_unknown">Unknown error</string>
+
+    <!-- Labels -->
     <string name="hint_search_services">Search services…</string>
     <string name="label_active">Active</string>
     <string name="label_blocked_url">Blocked URL</string>
@@ -83,7 +95,8 @@
     <string name="label_something_went_wrong">Something went wrong</string>
     <string name="label_unknown_error">Unknown error</string>
     <string name="label_url">URL</string>
-    <string name="matrix" translatable="false">Matrix</string>
+
+    <!-- Messages -->
     <string name="msg_add_to_fav">Add to favorites</string>
     <string name="msg_ai_update_success">AI services updated</string>
     <string name="msg_all_data_cleared">All data cleared</string>
@@ -96,27 +109,37 @@
     <string name="msg_clear_site_data_warning">This will clear cookies, local storage, and session data only for %1$s.\nYou may be logged out of this site.\n\nOther services will not be affected.</string>
     <string name="msg_copy_description">Copy these details if you need to report this issue</string>
     <string name="msg_domain_update_success">Domain rules updated</string>
+    <string name="msg_download_failed">Download failed</string>
+    <string name="msg_dowload_complete">Download complete: %1$s</string>
+    <string name="msg_downloading">Downloading: %1$s</string>
     <string name="msg_fail_to_load_config">Failed to load configurations. Please check your internet connection.</string>
+    <string name="msg_fail_to_save_blob">Failed to save blob</string>
     <string name="msg_fail_to_start">App failed to start\n%1$s</string>
     <string name="msg_loading">Loading AI assistants &amp; security rules</string>
     <string name="msg_microphone_enabled">Microphone enabled</string>
     <string name="msg_no_ai_services_enabled">No AI services enabled</string>
     <string name="msg_page_blocked_description">This page can\'t load due to security settings.</string>
     <string name="msg_permission_denied">Permission denied</string>
+    <string name="msg_processing_blob">Processing blob download…</string>
     <string name="msg_remove_from_fav">Remove from favorites</string>
+    <string name="msg_saved">Saved: %1$s</string>
     <string name="msg_service_killed">%s closed</string>
     <string name="msg_share_app">Check out %1$s — open-source collection of your favorite AI assistants!\n\nDownload app: %2$s</string>
     <string name="msg_site_data_cleared">Site data cleared for %1$s</string>
     <string name="msg_theme_switch_disabled">Theme switching is temporarily disabled (not working correctly)</string>
+    <string name="msg_unsupported_scheme">Unsupported download scheme: %1$s</string>
     <string name="msg_update_all_success">Domain rules &amp; AI services updated</string>
     <string name="msg_update_failed">Update failed – check connection</string>
-    <string name="open_in_browser_description">Open in external browser</string>
+
+    <!-- Sections -->
     <string name="section_about">About</string>
     <string name="section_performance">Performance</string>
     <string name="section_preferences">Preferences</string>
     <string name="section_security_privacy">Security &amp; Privacy</string>
     <string name="section_storage">Storage</string>
     <string name="section_webview">WebView</string>
+
+    <!-- Settings -->
     <string name="setting_block_trackers_ads">Block trackers &amp; ads</string>
     <string name="setting_block_trackers_ads_description">Recommended for privacy</string>
     <string name="setting_default_ai">Default AI Assistant</string>
@@ -137,13 +160,18 @@
     <string name="setting_theme_description">Choose between system default, light or dark</string>
     <string name="setting_third_party_cookies">Allow third-party cookies</string>
     <string name="setting_third_party_cookies_description">May be required for some logins</string>
-    <string name="share_link_description">Share via other apps</string>
+
+    <!-- Status & Tabs -->
     <string name="status_updating">Updating…</string>
     <string name="tab_all_services">All Services</string>
     <string name="tab_favorites">Favorites</string>
+
+    <!-- Theme Options -->
     <string name="theme_auto">Auto</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_light">Light</string>
+
+    <!-- Titles -->
     <string name="title_active_ai_services">Active AI Services</string>
     <string name="title_ai_assistants">AI Assistants</string>
     <string name="title_settings">Settings</string>
