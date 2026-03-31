@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3296129F6E4CA4C38939ECFD /* BrowserSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454D13E381BDC3A90C46102 /* BrowserSessionController.swift */; };
+		4385CCB0CBB85875C7B41E7D /* BrowserWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D82896E99E93F0D89AC62 /* BrowserWebView.swift */; };
+		43A366D2C0382E971AD9DE27 /* ServiceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE62FB8C67136C5471B16E /* ServiceManagerView.swift */; };
+		48F51A002BA393B0999DA96B /* ServiceSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0631229FED511A5588E990 /* ServiceSnapshot.swift */; };
+		4B9EBFC2583BB7C8810780EE /* BrowserScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09020E2B6679402425C88E6B /* BrowserScreen.swift */; };
+		533F476D3898C84100D7E42D /* ServiceSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4D6BD02A4843097D0028CF /* ServiceSecurity.swift */; };
+		534E56CB16572A663ED1156E /* DetailContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A17CE273813A16317E09B /* DetailContainerView.swift */; };
+		5E9BC02F047D7814C804D275 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF94DFEBF945E66495082172 /* Color+Hex.swift */; };
+		609EBCAEEB12423F3D774E9D /* ServiceCatalogDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A26B731D195E04C9134D15C /* ServiceCatalogDocument.swift */; };
+		6832F83DAA93A1FB2E86E9CA /* BrowserToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F8F193E138C7D402BD742A /* BrowserToolbar.swift */; };
+		77AAF63AD2B341A0ABE5B955 /* DownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDEA6458C53F1F2AB2F1918 /* DownloadItem.swift */; };
+		7883864DB8B251C301004A3D /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6F6025A5711B2CCAD213F /* AppModel.swift */; };
+		7E297A9FDA47E91E87FB5D01 /* RemoteServicesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F610E8ABCDF6D820293A1E3 /* RemoteServicesLoader.swift */; };
+		8649AC77E6DD5BE57C6A9E91 /* ShortcutDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914AC58AD4963CAFB7A528F6 /* ShortcutDescriptor.swift */; };
+		92A9D6A2C4FD4195E29A58E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAF487AE7F420C35F2C38B9 /* Assets.xcassets */; };
+		9A90200A9B5FAE3906ECC419 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF767AE91A35D9364194B96 /* AIService.swift */; };
+		9E8523F77FA1CD6CF64031F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEDEA4440F9CA9335B799D /* SettingsView.swift */; };
+		A750577C598DE5BCB7652415 /* AIHubMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887B8771FE51EC2141C3A2A /* AIHubMacApp.swift */; };
+		A872761729A32BD43365E2EC /* ShortcutEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C766038127CA18A8EEA3B31 /* ShortcutEditorView.swift */; };
+		A8DDAF8F1BFF3B49A04512A2 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBDFF3C6554058BD1013EF /* UserDefaultsStore.swift */; };
+		CE04A6828603B4858CE98644 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E938F11BF55E8FAD9B76856 /* ContentView.swift */; };
+		CF25273128B8F755531498B2 /* DownloadsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C540CB08C19B58E078A058 /* DownloadsPopoverView.swift */; };
+		D9E39CE500A4CB30D1F0EC0A /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148515BE345CB47D2836CFE /* SidebarView.swift */; };
+		DA4F7AF41FEB1BFD9494854A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3292B81B69A346F3E3E65 /* AppSettings.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0148515BE345CB47D2836CFE /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		09020E2B6679402425C88E6B /* BrowserScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserScreen.swift; sourceTree = "<group>"; };
+		2A26B731D195E04C9134D15C /* ServiceCatalogDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCatalogDocument.swift; sourceTree = "<group>"; };
+		2DF767AE91A35D9364194B96 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		318A17CE273813A16317E09B /* DetailContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailContainerView.swift; sourceTree = "<group>"; };
+		4F610E8ABCDF6D820293A1E3 /* RemoteServicesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteServicesLoader.swift; sourceTree = "<group>"; };
+		5CA3292B81B69A346F3E3E65 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		5E4D6BD02A4843097D0028CF /* ServiceSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSecurity.swift; sourceTree = "<group>"; };
+		67FEDEA4440F9CA9335B799D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		696B627B09CC9932DA792DEB /* AIHubMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIHubMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E938F11BF55E8FAD9B76856 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		71A6F6025A5711B2CCAD213F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		7C766038127CA18A8EEA3B31 /* ShortcutEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutEditorView.swift; sourceTree = "<group>"; };
+		7F1D82896E99E93F0D89AC62 /* BrowserWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserWebView.swift; sourceTree = "<group>"; };
+		7FFBDFF3C6554058BD1013EF /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
+		8B0631229FED511A5588E990 /* ServiceSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSnapshot.swift; sourceTree = "<group>"; };
+		8FAF487AE7F420C35F2C38B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		914AC58AD4963CAFB7A528F6 /* ShortcutDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutDescriptor.swift; sourceTree = "<group>"; };
+		A887B8771FE51EC2141C3A2A /* AIHubMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIHubMacApp.swift; sourceTree = "<group>"; };
+		B7AE62FB8C67136C5471B16E /* ServiceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManagerView.swift; sourceTree = "<group>"; };
+		B9F8F193E138C7D402BD742A /* BrowserToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserToolbar.swift; sourceTree = "<group>"; };
+		D1C540CB08C19B58E078A058 /* DownloadsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsPopoverView.swift; sourceTree = "<group>"; };
+		DCDEA6458C53F1F2AB2F1918 /* DownloadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItem.swift; sourceTree = "<group>"; };
+		DF94DFEBF945E66495082172 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		F454D13E381BDC3A90C46102 /* BrowserSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSessionController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1186FA91D8CFCAEC5ADEF528 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4F610E8ABCDF6D820293A1E3 /* RemoteServicesLoader.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		6342BFC4DE064AB825378192 /* AIHubMac */ = {
+			isa = PBXGroup;
+			children = (
+				A887B8771FE51EC2141C3A2A /* AIHubMacApp.swift */,
+				8FAF487AE7F420C35F2C38B9 /* Assets.xcassets */,
+				9E5E935B673B510C1D87A842 /* App */,
+				972723DD2983D4273C274025 /* Models */,
+				1186FA91D8CFCAEC5ADEF528 /* Services */,
+				F49F5512DF2A8BA7DAF9552C /* Support */,
+				9CA1B00F28F5DD45A654991B /* Views */,
+				C1E9F42BBCE364C8956388B4 /* Web */,
+			);
+			name = AIHubMac;
+			path = macos/AIHubMac;
+			sourceTree = "<group>";
+		};
+		77AEFCC97F4D75FA0D371A2B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				696B627B09CC9932DA792DEB /* AIHubMac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		972723DD2983D4273C274025 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2DF767AE91A35D9364194B96 /* AIService.swift */,
+				5CA3292B81B69A346F3E3E65 /* AppSettings.swift */,
+				DCDEA6458C53F1F2AB2F1918 /* DownloadItem.swift */,
+				8B0631229FED511A5588E990 /* ServiceSnapshot.swift */,
+				914AC58AD4963CAFB7A528F6 /* ShortcutDescriptor.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9CA1B00F28F5DD45A654991B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09020E2B6679402425C88E6B /* BrowserScreen.swift */,
+				B9F8F193E138C7D402BD742A /* BrowserToolbar.swift */,
+				7F1D82896E99E93F0D89AC62 /* BrowserWebView.swift */,
+				6E938F11BF55E8FAD9B76856 /* ContentView.swift */,
+				318A17CE273813A16317E09B /* DetailContainerView.swift */,
+				D1C540CB08C19B58E078A058 /* DownloadsPopoverView.swift */,
+				B7AE62FB8C67136C5471B16E /* ServiceManagerView.swift */,
+				67FEDEA4440F9CA9335B799D /* SettingsView.swift */,
+				7C766038127CA18A8EEA3B31 /* ShortcutEditorView.swift */,
+				0148515BE345CB47D2836CFE /* SidebarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9E5E935B673B510C1D87A842 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				71A6F6025A5711B2CCAD213F /* AppModel.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C1E9F42BBCE364C8956388B4 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				F454D13E381BDC3A90C46102 /* BrowserSessionController.swift */,
+			);
+			path = Web;
+			sourceTree = "<group>";
+		};
+		C498D1E271598BCD3D36CFA9 = {
+			isa = PBXGroup;
+			children = (
+				6342BFC4DE064AB825378192 /* AIHubMac */,
+				77AEFCC97F4D75FA0D371A2B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F49F5512DF2A8BA7DAF9552C /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				DF94DFEBF945E66495082172 /* Color+Hex.swift */,
+				2A26B731D195E04C9134D15C /* ServiceCatalogDocument.swift */,
+				5E4D6BD02A4843097D0028CF /* ServiceSecurity.swift */,
+				7FFBDFF3C6554058BD1013EF /* UserDefaultsStore.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83F35798FD357912D65A7BF3 /* AIHubMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A760E0563335FAD8AFC31325 /* Build configuration list for PBXNativeTarget "AIHubMac" */;
+			buildPhases = (
+				4B4B2DF809FBCC44D6C65775 /* Sources */,
+				2D3EBE1FC41D59CDD6076B83 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AIHubMac;
+			packageProductDependencies = (
+			);
+			productName = AIHubMac;
+			productReference = 696B627B09CC9932DA792DEB /* AIHubMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ADE2FF021D8D51B470431464 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					83F35798FD357912D65A7BF3 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 22489E9E41E3C1742FFD3E46 /* Build configuration list for PBXProject "AIHubMac" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C498D1E271598BCD3D36CFA9;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 77AEFCC97F4D75FA0D371A2B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83F35798FD357912D65A7BF3 /* AIHubMac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2D3EBE1FC41D59CDD6076B83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92A9D6A2C4FD4195E29A58E9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4B4B2DF809FBCC44D6C65775 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A750577C598DE5BCB7652415 /* AIHubMacApp.swift in Sources */,
+				9A90200A9B5FAE3906ECC419 /* AIService.swift in Sources */,
+				7883864DB8B251C301004A3D /* AppModel.swift in Sources */,
+				DA4F7AF41FEB1BFD9494854A /* AppSettings.swift in Sources */,
+				4B9EBFC2583BB7C8810780EE /* BrowserScreen.swift in Sources */,
+				3296129F6E4CA4C38939ECFD /* BrowserSessionController.swift in Sources */,
+				6832F83DAA93A1FB2E86E9CA /* BrowserToolbar.swift in Sources */,
+				4385CCB0CBB85875C7B41E7D /* BrowserWebView.swift in Sources */,
+				5E9BC02F047D7814C804D275 /* Color+Hex.swift in Sources */,
+				CE04A6828603B4858CE98644 /* ContentView.swift in Sources */,
+				534E56CB16572A663ED1156E /* DetailContainerView.swift in Sources */,
+				77AAF63AD2B341A0ABE5B955 /* DownloadItem.swift in Sources */,
+				CF25273128B8F755531498B2 /* DownloadsPopoverView.swift in Sources */,
+				7E297A9FDA47E91E87FB5D01 /* RemoteServicesLoader.swift in Sources */,
+				609EBCAEEB12423F3D774E9D /* ServiceCatalogDocument.swift in Sources */,
+				43A366D2C0382E971AD9DE27 /* ServiceManagerView.swift in Sources */,
+				533F476D3898C84100D7E42D /* ServiceSecurity.swift in Sources */,
+				48F51A002BA393B0999DA96B /* ServiceSnapshot.swift in Sources */,
+				9E8523F77FA1CD6CF64031F3 /* SettingsView.swift in Sources */,
+				8649AC77E6DD5BE57C6A9E91 /* ShortcutDescriptor.swift in Sources */,
+				A872761729A32BD43365E2EC /* ShortcutEditorView.swift in Sources */,
+				D9E39CE500A4CB30D1F0EC0A /* SidebarView.swift in Sources */,
+				A8DDAF8F1BFF3B49A04512A2 /* UserDefaultsStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0760B3B89429D129140F1EFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "AI Hub Mac";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCameraUsageDescription = "AI Hub may need camera access for AI websites that support live video features.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "AI Hub may need microphone access for AI websites that support voice features.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "AI Hub may need photo library access when uploading files to AI websites.";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.foss.aihub.mac;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AB30D695258173A8B958A1AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.foss.aihub.mac;
+				PRODUCT_NAME = AIHubMac;
+				SDKROOT = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		CE4657BD6E23061A2C0474B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.foss.aihub.mac;
+				PRODUCT_NAME = AIHubMac;
+				SDKROOT = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		EF9DFA5550151F8B676BFBC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "AI Hub Mac";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCameraUsageDescription = "AI Hub may need camera access for AI websites that support live video features.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "AI Hub may need microphone access for AI websites that support voice features.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "AI Hub may need photo library access when uploading files to AI websites.";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.foss.aihub.mac;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22489E9E41E3C1742FFD3E46 /* Build configuration list for PBXProject "AIHubMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE4657BD6E23061A2C0474B1 /* Debug */,
+				AB30D695258173A8B958A1AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A760E0563335FAD8AFC31325 /* Build configuration list for PBXNativeTarget "AIHubMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0760B3B89429D129140F1EFB /* Debug */,
+				EF9DFA5550151F8B676BFBC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ADE2FF021D8D51B470431464 /* Project object */;
+}

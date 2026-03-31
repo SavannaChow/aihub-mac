@@ -10,3 +10,6 @@ local.properties
 release/
 .idea/
 .kotlin/
+/.build/
+/dist/
+/@command_history.txt
