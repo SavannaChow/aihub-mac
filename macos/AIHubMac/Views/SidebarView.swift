@@ -16,136 +16,13 @@ struct SidebarView: View {
     @State private var addErrorMessage: String?
 
     var body: some View {
-        List(selection: selectionBinding) {
-            if isEditingEnabledServices {
-                Section("Enabled AI Order") {
-                    ForEach(appModel.services) { service in
-                        HStack(spacing: 12) {
-                            Image(systemName: service.symbolName)
-                                .foregroundStyle(service.accentColor)
-                                .frame(width: 24)
+        GeometryReader { proxy in
+            let isCompactSidebar = !isEditingEnabledServices && proxy.size.width <= 76
 
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(service.name)
-                                Text(service.subtitle)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-
-                            Spacer()
-
-                            Image(systemName: "line.3.horizontal")
-                                .foregroundStyle(.tertiary)
-                                .help("Drag to reorder")
-                        }
-                    }
-                    .onMove(perform: appModel.moveEnabledServices)
-                }
-
-                Section("All AI Services") {
-                    ForEach(appModel.allServices) { service in
-                        HStack(spacing: 12) {
-                            Image(systemName: service.symbolName)
-                                .foregroundStyle(service.accentColor)
-                                .frame(width: 24)
-
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(service.name)
-                                Text(service.subtitle)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-
-                            Spacer()
-
-                            Toggle(
-                                "",
-                                isOn: Binding(
-                                    get: { appModel.isEnabled(serviceID: service.id) },
-                                    set: { appModel.setServiceEnabled($0, serviceID: service.id) }
-                                )
-                            )
-                            .labelsHidden()
-
-                            if appModel.isCustomService(service) {
-                                Button {
-                                    startEditing(service)
-                                } label: {
-                                    Image(systemName: "pencil")
-                                }
-                                .buttonStyle(.borderless)
-                                .help("Edit custom service")
-
-                                Button(role: .destructive) {
-                                    if editingCustomServiceID == service.id {
-                                        resetDraft()
-                                    }
-                                    appModel.removeCustomService(id: service.id)
-                                } label: {
-                                    Image(systemName: "trash")
-                                }
-                                .buttonStyle(.borderless)
-                                .help("Delete custom service")
-                            }
-                        }
-                    }
-                }
-
-                if !appModel.hasCachedOfficialCatalog {
-                    Section("Official Catalog") {
-                        Button {
-                            confirmingOfficialCatalogLoad = true
-                        } label: {
-                            HStack {
-                                if loadingOfficialCatalog {
-                                    ProgressView()
-                                        .controlSize(.small)
-                                } else {
-                                    Image(systemName: "arrow.down.circle")
-                                }
-                                Text("Load Official AI Catalog")
-                            }
-                        }
-                        .disabled(loadingOfficialCatalog)
-
-                        Text("Load the full official AI service list from \(RemoteServicesLoader.sourceURL.absoluteString). You only need to do this once, and it will be cached for later launches.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
-                Section(editingCustomServiceID == nil ? "Add Custom Service" : "Edit Custom Service") {
-                    TextField("Service ID", text: $draftID)
-                        .disabled(editingCustomServiceID != nil)
-                    TextField("Display name", text: $draftName)
-                    TextField("https://service-url.example", text: $draftURL)
-                    TextField("Subtitle", text: $draftSubtitle)
-                    TextField("Symbol name", text: $draftSymbolName)
-                    TextField("Accent hex", text: $draftAccentHex)
-
-                    HStack {
-                        Button(editingCustomServiceID == nil ? "Add Service" : "Save Changes") {
-                            saveCustomService()
-                        }
-                        .disabled(!isDraftReady)
-
-                        if editingCustomServiceID != nil {
-                            Button("Cancel") {
-                                resetDraft()
-                            }
-                        }
-                    }
-
-                    Text("Custom services can be regular websites too, like Gmail. Only HTTPS URLs are allowed, and non-trusted domains will trigger a warning before opening.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            } else {
-                Section("AI Services") {
-                    ForEach(appModel.services) { service in
-                        Button {
-                            appModel.select(serviceID: service.id)
-                        } label: {
+            List(selection: selectionBinding) {
+                if isEditingEnabledServices {
+                    Section("Enabled AI Order") {
+                        ForEach(appModel.services) { service in
                             HStack(spacing: 12) {
                                 Image(systemName: service.symbolName)
                                     .foregroundStyle(service.accentColor)
@@ -159,42 +36,245 @@ struct SidebarView: View {
                                 }
 
                                 Spacer()
+
+                                Image(systemName: "line.3.horizontal")
+                                    .foregroundStyle(.tertiary)
+                                    .help("Drag to reorder")
                             }
-                            .contentShape(Rectangle())
+                        }
+                        .onMove(perform: appModel.moveEnabledServices)
+                    }
+
+                    Section("All AI Services") {
+                        ForEach(appModel.allServices) { service in
+                            HStack(spacing: 12) {
+                                Image(systemName: service.symbolName)
+                                    .foregroundStyle(service.accentColor)
+                                    .frame(width: 24)
+
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(service.name)
+                                    Text(service.subtitle)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+
+                                Spacer()
+
+                                Toggle(
+                                    "",
+                                    isOn: Binding(
+                                        get: { appModel.isEnabled(serviceID: service.id) },
+                                        set: { appModel.setServiceEnabled($0, serviceID: service.id) }
+                                    )
+                                )
+                                .labelsHidden()
+
+                                if appModel.isCustomService(service) {
+                                    Button {
+                                        startEditing(service)
+                                    } label: {
+                                        Image(systemName: "pencil")
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .help("Edit custom service")
+
+                                    Button(role: .destructive) {
+                                        if editingCustomServiceID == service.id {
+                                            resetDraft()
+                                        }
+                                        appModel.removeCustomService(id: service.id)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .help("Delete custom service")
+                                }
+                            }
+                        }
+                    }
+
+                    if !appModel.hasCachedOfficialCatalog {
+                        Section("Official Catalog") {
+                            Button {
+                                confirmingOfficialCatalogLoad = true
+                            } label: {
+                                HStack {
+                                    if loadingOfficialCatalog {
+                                        ProgressView()
+                                            .controlSize(.small)
+                                    } else {
+                                        Image(systemName: "arrow.down.circle")
+                                    }
+                                    Text("Load Official AI Catalog")
+                                }
+                            }
+                            .disabled(loadingOfficialCatalog)
+
+                            Text("Load the full official AI service list from \(RemoteServicesLoader.sourceURL.absoluteString). You only need to do this once, and it will be cached for later launches.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    Section(editingCustomServiceID == nil ? "Add Custom Service" : "Edit Custom Service") {
+                        TextField("Service ID", text: $draftID)
+                            .disabled(editingCustomServiceID != nil)
+                        TextField("Display name", text: $draftName)
+                        TextField("https://service-url.example", text: $draftURL)
+                        TextField("Subtitle", text: $draftSubtitle)
+                        TextField("Symbol name", text: $draftSymbolName)
+                        TextField("Accent hex", text: $draftAccentHex)
+
+                        HStack {
+                            Button(editingCustomServiceID == nil ? "Add Service" : "Save Changes") {
+                                saveCustomService()
+                            }
+                            .disabled(!isDraftReady)
+
+                            if editingCustomServiceID != nil {
+                                Button("Cancel") {
+                                    resetDraft()
+                                }
+                            }
+                        }
+
+                        Text("Custom services can be regular websites too, like Gmail. Only HTTPS URLs are allowed, and non-trusted domains will trigger a warning before opening.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                } else if isCompactSidebar {
+                    ForEach(appModel.services) { service in
+                        Button {
+                            appModel.select(serviceID: service.id)
+                        } label: {
+                            Image(systemName: service.symbolName)
+                                .foregroundStyle(service.accentColor)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(height: 28)
+                                .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
                         .tag(service.id)
+                        .help(service.name)
+                    }
+                } else {
+                    Section("AI Services") {
+                        ForEach(appModel.services) { service in
+                            Button {
+                                appModel.select(serviceID: service.id)
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: service.symbolName)
+                                        .foregroundStyle(service.accentColor)
+                                        .frame(width: 24)
+
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(service.name)
+                                        Text(service.subtitle)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                            .tag(service.id)
+                        }
+                    }
+                }
+
+                if isCompactSidebar {
+                    Section {
+                        Color.clear
+                            .frame(height: 10)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .listRowBackground(Color.clear)
+                    }
+
+                    Section {
+                        Button {
+                            isEditingEnabledServices.toggle()
+                        } label: {
+                            Image(systemName: "slider.vertical.3")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(height: 28)
+                                .contentShape(Rectangle())
+                        }
+                        .help(isEditingEnabledServices ? "Finish editing visible services" : "Edit visible services")
+                        .buttonStyle(.plain)
+
+                        Button {
+                            showingServiceManager = true
+                        } label: {
+                            Image(systemName: "sparkle.text.clipboard")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(height: 28)
+                                .contentShape(Rectangle())
+                        }
+                        .help("Manage custom services")
+                        .buttonStyle(.plain)
+
+                        SettingsLink {
+                            Image(systemName: "gearshape")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(height: 28)
+                                .contentShape(Rectangle())
+                        }
+                        .help("Open settings")
+                        .buttonStyle(.plain)
+                    }
+                } else {
+                    Section("Custom") {
+                        VStack(spacing: 14) {
+                            Button {
+                                isEditingEnabledServices.toggle()
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "slider.vertical.3")
+                                        .frame(width: 24)
+                                    Text(isEditingEnabledServices ? "Done Editing" : "Edit Visible Services")
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle())
+                            }
+                            .help(isEditingEnabledServices ? "Finish editing visible services" : "Edit visible services")
+                            .buttonStyle(.plain)
+
+                            Button {
+                                showingServiceManager = true
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "sparkle.text.clipboard")
+                                        .frame(width: 24)
+                                    Text("Manage Custom Services")
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle())
+                            }
+                            .help("Manage custom services")
+                            .buttonStyle(.plain)
+
+                            SettingsLink {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "gearshape")
+                                        .frame(width: 24)
+                                    Text("Settings")
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle())
+                            }
+                            .help("Open settings")
+                            .buttonStyle(.plain)
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                 }
             }
-
-            Section("Performance") {
-                Label("Single active web view", systemImage: "bolt.horizontal.circle")
-                Label("Shared login session", systemImage: "person.crop.circle.badge.checkmark")
-                Label("Safari engine", systemImage: "safari")
-            }
-            .foregroundStyle(.secondary)
         }
         .listStyle(.sidebar)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    isEditingEnabledServices.toggle()
-                } label: {
-                    Text(isEditingEnabledServices ? "Done" : "Edit")
-                }
-                .help(isEditingEnabledServices ? "Finish editing visible services" : "Edit visible services")
-            }
-
-            ToolbarItem(placement: .automatic) {
-                Button {
-                    showingServiceManager = true
-                } label: {
-                    Image(systemName: "slider.horizontal.3")
-                }
-                .help("Manage custom services")
-            }
-        }
         .sheet(isPresented: $showingServiceManager) {
             ServiceManagerView()
                 .environmentObject(appModel)

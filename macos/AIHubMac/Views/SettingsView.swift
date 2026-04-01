@@ -19,6 +19,10 @@ struct SettingsView: View {
                     isOn: $appModel.settings.openLinksInDefaultBrowser
                 )
                 Toggle(
+                    "Use Cmd+Enter to send on supported services",
+                    isOn: cmdEnterBinding
+                )
+                Toggle(
                     "Pause active web content when app goes to background",
                     isOn: suspendBinding
                 )
@@ -122,6 +126,13 @@ struct SettingsView: View {
         Binding(
             get: { appModel.settings.keepSingleActiveWebView },
             set: { appModel.updateKeepSingleActiveWebView($0) }
+        )
+    }
+
+    private var cmdEnterBinding: Binding<Bool> {
+        Binding(
+            get: { appModel.settings.useCommandEnterToSend },
+            set: { appModel.updateCommandEnterToSend($0) }
         )
     }
 

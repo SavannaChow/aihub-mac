@@ -19,6 +19,19 @@ enum ServiceSecurityError: LocalizedError {
 }
 
 enum ServiceSecurity {
+    private static let commonIdentityProviderHosts = [
+        "accounts.google.com",
+        "appleid.apple.com",
+        "github.com",
+        "login.live.com",
+        "login.microsoftonline.com",
+        "login.microsoft.com",
+        "auth.openai.com",
+        "auth0.com",
+        "okta.com",
+        "onelogin.com"
+    ]
+
     static func validatedService(
         id: String,
         name: String,
@@ -55,26 +68,61 @@ enum ServiceSecurity {
 
         switch service.id {
         case "chatgpt":
-            return uniqueHosts(baseHost + ["chatgpt.com", "openai.com", "auth.openai.com"])
+            return uniqueHosts(baseHost + commonIdentityProviderHosts + [
+                "chatgpt.com",
+                "openai.com",
+                "chat.openai.com",
+                "oaistatic.com",
+                "oaiusercontent.com"
+            ])
         case "claude":
-            return uniqueHosts(baseHost + ["claude.ai", "anthropic.com"])
+            return uniqueHosts(baseHost + commonIdentityProviderHosts + [
+                "claude.ai",
+                "anthropic.com"
+            ])
         case "gemini":
-            return uniqueHosts(baseHost + ["gemini.google.com", "google.com", "accounts.google.com"])
+            return uniqueHosts(baseHost + commonIdentityProviderHosts + [
+                "gemini.google.com",
+                "google.com",
+                "gstatic.com",
+                "googleusercontent.com"
+            ])
         case "perplexity":
-            return uniqueHosts(baseHost + ["perplexity.ai", "www.perplexity.ai"])
+            return uniqueHosts(baseHost + commonIdentityProviderHosts + [
+                "perplexity.ai",
+                "www.perplexity.ai"
+            ])
         case "copilot":
-            return uniqueHosts(baseHost + ["copilot.microsoft.com", "login.live.com", "microsoft.com"])
+            return uniqueHosts(baseHost + commonIdentityProviderHosts + [
+                "copilot.microsoft.com",
+                "microsoft.com",
+                "bing.com"
+            ])
         default:
-            return uniqueHosts(baseHost)
+            return uniqueHosts(baseHost + commonIdentityProviderHosts)
         }
     }
 
     static func isHost(_ host: String, allowedBy trustedHosts: [String]) -> Bool {
-        let normalizedHost = host.lowercased()
+        let normalizedHost = normalized(host)
         return trustedHosts.contains { trustedHost in
-            let normalizedTrustedHost = trustedHost.lowercased()
+            let normalizedTrustedHost = normalized(trustedHost)
             return normalizedHost == normalizedTrustedHost || normalizedHost.hasSuffix(".\(normalizedTrustedHost)")
         }
+    }
+
+    static func shouldTrust(url: URL, allowedHosts: [String]) -> Bool {
+        guard let scheme = url.scheme?.lowercased() else { return true }
+
+        if !["http", "https"].contains(scheme) {
+            return true
+        }
+
+        guard let host = url.host, !host.isEmpty else {
+            return true
+        }
+
+        return isHost(host, allowedBy: allowedHosts)
     }
 
     @MainActor
@@ -93,9 +141,16 @@ enum ServiceSecurity {
         Array(
             Set(
                 hosts
-                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() }
+                    .map(normalized)
                     .filter { !$0.isEmpty }
             )
         ).sorted()
+    }
+
+    private static func normalized(_ host: String) -> String {
+        host
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .trimmingCharacters(in: CharacterSet(charactersIn: "."))
     }
 }

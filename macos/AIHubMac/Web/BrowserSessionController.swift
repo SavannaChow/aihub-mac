@@ -21,6 +21,7 @@ final class BrowserSessionController: NSObject, ObservableObject {
     }
     var suspendWhenBackgrounded = true
     var keepSingleActiveWebView = true
+    var useCommandEnterToSend = false
     var trustedHostsProvider: ((AIService) -> [String])?
     var trustHostRecorder: ((AIService, String) -> Void)?
 
@@ -193,6 +194,13 @@ final class BrowserSessionController: NSObject, ObservableObject {
         }
     }
 
+    func refreshCommandEnterBehavior() {
+        for (serviceID, webView) in webViews {
+            guard let service = servicesByID[serviceID] else { continue }
+            installCommandEnterBehaviorIfNeeded(on: webView, for: service)
+        }
+    }
+
     func snapshot(for serviceID: String) -> ServiceSnapshot? {
         snapshots[serviceID]
     }
@@ -242,6 +250,7 @@ final class BrowserSessionController: NSObject, ObservableObject {
         }
 
         webViews[service.id] = webView
+        installCommandEnterBehaviorIfNeeded(on: webView, for: service)
         return webView
     }
 
@@ -336,10 +345,179 @@ final class BrowserSessionController: NSObject, ObservableObject {
             }
         ]
     }
+
+    private func installCommandEnterBehaviorIfNeeded(on webView: WKWebView, for service: AIService) {
+        let script = commandEnterScript(for: service)
+        webView.evaluateJavaScript(script)
+    }
+
+    private func commandEnterScript(for service: AIService) -> String {
+        let enabled = useCommandEnterToSend && Self.commandEnterSupportedServiceIDs.contains(service.id)
+
+        return """
+        (() => {
+          const enabled = \(enabled ? "true" : "false");
+          const serviceId = "\(service.id)";
+          const key = "__aihubCommandEnter";
+          const state = window[key] || {};
+          if (state.handler) {
+            document.removeEventListener("keydown", state.handler, true);
+          }
+          if (!enabled) {
+            window[key] = { enabled: false };
+            return;
+          }
+
+          const findEditable = (target) => {
+            let node = target;
+            while (node) {
+              if (node instanceof HTMLElement) {
+                if (node.tagName === "TEXTAREA") return node;
+                if (node.getAttribute("role") === "textbox") return node;
+                if (node.hasAttribute("contenteditable")) return node;
+              }
+
+              const root = node.getRootNode ? node.getRootNode() : null;
+              if (root && root.host && root.host !== node) {
+                node = root.host;
+              } else {
+                node = node.parentElement;
+              }
+            }
+            return null;
+          };
+
+          const dispatchSyntheticKey = (editable, options) => {
+            const eventInit = {
+              key: "Enter",
+              code: "Enter",
+              keyCode: 13,
+              which: 13,
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              shiftKey: !!options.shiftKey,
+              metaKey: !!options.metaKey,
+              ctrlKey: !!options.ctrlKey,
+              altKey: !!options.altKey
+            };
+
+            for (const type of ["keydown", "keypress", "keyup"]) {
+              editable.dispatchEvent(new KeyboardEvent(type, eventInit));
+            }
+          };
+
+          const insertLineBreak = (editable) => {
+            if (!editable) return;
+            editable.focus();
+
+            if (editable instanceof HTMLTextAreaElement) {
+              const start = editable.selectionStart ?? editable.value.length;
+              const end = editable.selectionEnd ?? start;
+              editable.setRangeText("\\n", start, end, "end");
+              editable.dispatchEvent(new InputEvent("input", {
+                bubbles: true,
+                cancelable: false,
+                data: "\\n",
+                inputType: "insertLineBreak"
+              }));
+              return;
+            }
+
+            window[key] = { ...window[key], replaying: true };
+            try {
+              if (document.queryCommandSupported && document.queryCommandSupported("insertLineBreak")) {
+                if (document.execCommand("insertLineBreak")) {
+                  editable.dispatchEvent(new InputEvent("input", {
+                    bubbles: true,
+                    cancelable: false,
+                    data: "\\n",
+                    inputType: "insertLineBreak"
+                  }));
+                  return;
+                }
+              }
+
+              dispatchSyntheticKey(editable, {
+                shiftKey: true,
+                metaKey: false,
+                ctrlKey: false,
+                altKey: false
+              });
+            } finally {
+              window[key] = { ...window[key], replaying: false };
+            }
+          };
+
+          const sendMessage = (editable) => {
+            if (!editable) return;
+            editable.focus();
+
+            window[key] = { ...window[key], replaying: true };
+            try {
+              dispatchSyntheticKey(editable, {
+                shiftKey: false,
+                metaKey: false,
+                ctrlKey: false,
+                altKey: false
+              });
+
+              if (serviceId === "gemini") {
+                const sendButton = document.querySelector(
+                  "button[aria-label*='Send'], button[aria-label*='send'], button[data-testid*='send'], button[mattooltip*='Send'], button[mattooltip*='send']"
+                );
+                if (sendButton instanceof HTMLButtonElement && !sendButton.disabled) {
+                  setTimeout(() => sendButton.click(), 0);
+                }
+              }
+            } finally {
+              window[key] = { ...window[key], replaying: false };
+            }
+          };
+
+          const handler = (event) => {
+            const currentState = window[key] || {};
+            if (event.key !== "Enter") return;
+            if (event.isComposing) return;
+            if (currentState.replaying) return;
+            const editable = findEditable(event.target);
+            if (!editable) return;
+
+            if (event.metaKey && !event.shiftKey && !event.altKey && !event.ctrlKey) {
+              event.preventDefault();
+              event.stopPropagation();
+              sendMessage(editable);
+              return;
+            }
+
+            if (!event.metaKey && !event.shiftKey && !event.altKey && !event.ctrlKey) {
+              event.preventDefault();
+              event.stopPropagation();
+              insertLineBreak(editable);
+            }
+          };
+
+          document.addEventListener("keydown", handler, true);
+          window[key] = { enabled: true, serviceId, handler, replaying: false };
+        })();
+        """
+    }
+}
+
+extension BrowserSessionController {
+    private static let commandEnterSupportedServiceIDs: Set<String> = [
+        "chatgpt",
+        "claude",
+        "gemini",
+        "perplexity"
+    ]
 }
 
 extension BrowserSessionController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let service = service(for: webView) {
+            installCommandEnterBehaviorIfNeeded(on: webView, for: service)
+        }
         persistSnapshot()
     }
 
@@ -366,6 +544,7 @@ extension BrowserSessionController: WKNavigationDelegate {
     ) {
         if let service = service(for: webView),
            let url = navigationAction.request.url,
+           shouldCheckTrust(for: navigationAction),
            !isTrustedNavigation(for: service, url: url),
            !confirmUntrustedNavigation(for: service, url: url) {
             decisionHandler(.cancel)
@@ -395,11 +574,19 @@ extension BrowserSessionController: WKNavigationDelegate {
     }
 
     private func isTrustedNavigation(for service: AIService, url: URL) -> Bool {
-        guard let host = url.host?.lowercased() else { return true }
         let allowedHosts = ServiceSecurity.uniqueHosts(
             ServiceSecurity.trustedHosts(for: service) + (trustedHostsProvider?(service) ?? [])
         )
-        return ServiceSecurity.isHost(host, allowedBy: allowedHosts)
+        return ServiceSecurity.shouldTrust(url: url, allowedHosts: allowedHosts)
+    }
+
+    private func shouldCheckTrust(for navigationAction: WKNavigationAction) -> Bool {
+        if let targetFrame = navigationAction.targetFrame {
+            return targetFrame.isMainFrame
+        }
+
+        // Treat popup/login windows as security-relevant top-level navigations.
+        return true
     }
 
     private func confirmUntrustedNavigation(for service: AIService, url: URL) -> Bool {

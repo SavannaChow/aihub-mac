@@ -24,6 +24,7 @@ final class AppModel: ObservableObject {
             browser.allowBackForwardNavigationGestures = settings.allowBackForwardNavigationGestures
             browser.suspendWhenBackgrounded = settings.suspendWhenBackgrounded
             browser.keepSingleActiveWebView = settings.keepSingleActiveWebView
+            browser.useCommandEnterToSend = settings.useCommandEnterToSend
         }
     }
 
@@ -62,6 +63,7 @@ final class AppModel: ObservableObject {
         browser.allowBackForwardNavigationGestures = settings.allowBackForwardNavigationGestures
         browser.suspendWhenBackgrounded = settings.suspendWhenBackgrounded
         browser.keepSingleActiveWebView = settings.keepSingleActiveWebView
+        browser.useCommandEnterToSend = settings.useCommandEnterToSend
         browser.trustedHostsProvider = { [weak self] service in
             guard let self else { return [] }
             return self.trustedHosts(for: service.id)
@@ -168,6 +170,11 @@ final class AppModel: ObservableObject {
         if enabled {
             browser.releaseInactiveWebViews()
         }
+    }
+
+    func updateCommandEnterToSend(_ enabled: Bool) {
+        settings.useCommandEnterToSend = enabled
+        browser.refreshCommandEnterBehavior()
     }
 
     func cycleService(offset: Int) {
@@ -299,12 +306,12 @@ final class AppModel: ObservableObject {
                 return nil
             }
 
-            if event.keyCode == 125 {
+            if event.keyCode == 124 {
                 self.cycleService(offset: 1)
                 return nil
             }
 
-            if event.keyCode == 126 {
+            if event.keyCode == 123 {
                 self.cycleService(offset: -1)
                 return nil
             }
