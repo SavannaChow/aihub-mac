@@ -5,6 +5,7 @@ struct AppSettings: Codable, Equatable {
     var allowBackForwardNavigationGestures = true
     var keepSingleActiveWebView = true
     var openLinksInDefaultBrowser = false
+    var openAuthenticationPopupsExternally = false
     var useCommandEnterToSend = false
     var preferredHomepage = ""
     var suspendWhenBackgrounded = true

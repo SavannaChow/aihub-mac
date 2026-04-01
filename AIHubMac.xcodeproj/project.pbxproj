@@ -12,6 +12,7 @@
 		43A366D2C0382E971AD9DE27 /* ServiceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE62FB8C67136C5471B16E /* ServiceManagerView.swift */; };
 		48F51A002BA393B0999DA96B /* ServiceSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0631229FED511A5588E990 /* ServiceSnapshot.swift */; };
 		4B9EBFC2583BB7C8810780EE /* BrowserScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09020E2B6679402425C88E6B /* BrowserScreen.swift */; };
+		5059D893E4A82D7A67624007 /* AuthenticationPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161E47D6114D9013422DEED /* AuthenticationPopupView.swift */; };
 		533F476D3898C84100D7E42D /* ServiceSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4D6BD02A4843097D0028CF /* ServiceSecurity.swift */; };
 		534E56CB16572A663ED1156E /* DetailContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A17CE273813A16317E09B /* DetailContainerView.swift */; };
 		5E9BC02F047D7814C804D275 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF94DFEBF945E66495082172 /* Color+Hex.swift */; };
@@ -52,6 +53,7 @@
 		8B0631229FED511A5588E990 /* ServiceSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSnapshot.swift; sourceTree = "<group>"; };
 		8FAF487AE7F420C35F2C38B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		914AC58AD4963CAFB7A528F6 /* ShortcutDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutDescriptor.swift; sourceTree = "<group>"; };
+		A161E47D6114D9013422DEED /* AuthenticationPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPopupView.swift; sourceTree = "<group>"; };
 		A887B8771FE51EC2141C3A2A /* AIHubMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIHubMacApp.swift; sourceTree = "<group>"; };
 		B7AE62FB8C67136C5471B16E /* ServiceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManagerView.swift; sourceTree = "<group>"; };
 		B9F8F193E138C7D402BD742A /* BrowserToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserToolbar.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		9CA1B00F28F5DD45A654991B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A161E47D6114D9013422DEED /* AuthenticationPopupView.swift */,
 				09020E2B6679402425C88E6B /* BrowserScreen.swift */,
 				B9F8F193E138C7D402BD742A /* BrowserToolbar.swift */,
 				7F1D82896E99E93F0D89AC62 /* BrowserWebView.swift */,
@@ -232,6 +235,7 @@
 				9A90200A9B5FAE3906ECC419 /* AIService.swift in Sources */,
 				7883864DB8B251C301004A3D /* AppModel.swift in Sources */,
 				DA4F7AF41FEB1BFD9494854A /* AppSettings.swift in Sources */,
+				5059D893E4A82D7A67624007 /* AuthenticationPopupView.swift in Sources */,
 				4B9EBFC2583BB7C8810780EE /* BrowserScreen.swift in Sources */,
 				3296129F6E4CA4C38939ECFD /* BrowserSessionController.swift in Sources */,
 				6832F83DAA93A1FB2E86E9CA /* BrowserToolbar.swift in Sources */,

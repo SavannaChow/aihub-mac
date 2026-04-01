@@ -1,9 +1,29 @@
 import AppKit
+import AuthenticationServices
 import Combine
 import WebKit
 
 @MainActor
 final class BrowserSessionController: NSObject, ObservableObject {
+    enum PasskeyAuthorizationState: String {
+        case authorized
+        case denied
+        case notDetermined
+    }
+
+    final class PopupSession: Identifiable {
+        let id = UUID()
+        let serviceID: String
+        let serviceName: String
+        let webView: WKWebView
+
+        init(serviceID: String, serviceName: String, webView: WKWebView) {
+            self.serviceID = serviceID
+            self.serviceName = serviceName
+            self.webView = webView
+        }
+    }
+
     @Published private(set) var activeServiceID: String?
     @Published private(set) var pageTitle = ""
     @Published private(set) var currentURL: URL?
@@ -12,11 +32,15 @@ final class BrowserSessionController: NSObject, ObservableObject {
     @Published private(set) var canGoBack = false
     @Published private(set) var canGoForward = false
     @Published private(set) var downloads: [DownloadItem] = []
+    @Published private(set) var popupSession: PopupSession?
+    @Published private(set) var passkeyAuthorizationState: PasskeyAuthorizationState = .notDetermined
 
     var openLinksInDefaultBrowser = false
+    var openAuthenticationPopupsExternally = false
     var allowBackForwardNavigationGestures = true {
         didSet {
             webViews.values.forEach { $0.allowsBackForwardNavigationGestures = allowBackForwardNavigationGestures }
+            popupSession?.webView.allowsBackForwardNavigationGestures = allowBackForwardNavigationGestures
         }
     }
     var suspendWhenBackgrounded = true
@@ -32,14 +56,16 @@ final class BrowserSessionController: NSObject, ObservableObject {
     }
     private var snapshots: [String: ServiceSnapshot] = [:]
     private var observationHandles: [NSKeyValueObservation] = []
-    private var popupRequest: URLRequest?
     private var pendingDownloadDestination: URL?
     private var webViews: [String: WKWebView] = [:]
+    private var popupServiceIDByWebView: [ObjectIdentifier: String] = [:]
     private var servicesByID: [String: AIService] = [:]
+    private let passkeyManager = ASAuthorizationWebBrowserPublicKeyCredentialManager()
 
     override init() {
         websiteDataStore = .default()
         super.init()
+        refreshPasskeyAuthorizationState()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(applicationDidResignActive),
@@ -98,6 +124,29 @@ final class BrowserSessionController: NSObject, ObservableObject {
     func openCurrentPageInDefaultBrowser() {
         guard let url = currentURL else { return }
         NSWorkspace.shared.open(url)
+    }
+
+    func requestPasskeyAuthorization() {
+        passkeyManager.requestAuthorizationForPublicKeyCredentials { [weak self] state in
+            Task { @MainActor [weak self] in
+                self?.passkeyAuthorizationState = Self.mapPasskeyAuthorizationState(state)
+            }
+        }
+    }
+
+    func closePopup() {
+        guard let popupSession else { return }
+        popupSession.webView.stopLoading()
+        popupSession.webView.navigationDelegate = nil
+        popupSession.webView.uiDelegate = nil
+        popupServiceIDByWebView.removeValue(forKey: ObjectIdentifier(popupSession.webView))
+        self.popupSession = nil
+    }
+
+    func openPopupInDefaultBrowser() {
+        guard let url = popupSession?.webView.url else { return }
+        NSWorkspace.shared.open(url)
+        closePopup()
     }
 
     func clearWebsiteData() async {
@@ -254,6 +303,24 @@ final class BrowserSessionController: NSObject, ObservableObject {
         return webView
     }
 
+    private func makePopupWebView(service: AIService, configuration: WKWebViewConfiguration) -> WKWebView {
+        configuration.websiteDataStore = websiteDataStore
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = true
+        configuration.preferences.isTextInteractionEnabled = true
+
+        let popupWebView = WKWebView(frame: .zero, configuration: configuration)
+        popupWebView.navigationDelegate = self
+        popupWebView.uiDelegate = self
+        popupWebView.allowsBackForwardNavigationGestures = allowBackForwardNavigationGestures
+        popupWebView.allowsMagnification = true
+        popupWebView.setValue(false, forKey: "drawsBackground")
+        popupWebView.customUserAgent = webView?.customUserAgent
+
+        popupServiceIDByWebView[ObjectIdentifier(popupWebView)] = service.id
+        popupSession = PopupSession(serviceID: service.id, serviceName: service.name, webView: popupWebView)
+        return popupWebView
+    }
+
     private func releaseWebView(for serviceID: String) {
         if activeServiceID == serviceID {
             observationHandles.forEach { $0.invalidate() }
@@ -285,6 +352,27 @@ final class BrowserSessionController: NSObject, ObservableObject {
     private func releaseAllWebViews() {
         for cachedServiceID in Array(webViews.keys) {
             releaseWebView(for: cachedServiceID)
+        }
+    }
+
+    private func refreshPasskeyAuthorizationState() {
+        passkeyAuthorizationState = Self.mapPasskeyAuthorizationState(
+            passkeyManager.authorizationStateForPlatformCredentials
+        )
+    }
+
+    private static func mapPasskeyAuthorizationState(
+        _ state: ASAuthorizationWebBrowserPublicKeyCredentialManager.AuthorizationState
+    ) -> PasskeyAuthorizationState {
+        switch state {
+        case .authorized:
+            return .authorized
+        case .denied:
+            return .denied
+        case .notDetermined:
+            return .notDetermined
+        @unknown default:
+            return .notDetermined
         }
     }
 
@@ -567,6 +655,9 @@ extension BrowserSessionController: WKNavigationDelegate {
 
     private func service(for webView: WKWebView) -> AIService? {
         guard let serviceID = webViews.first(where: { $0.value === webView })?.key else {
+            if let popupServiceID = popupServiceIDByWebView[ObjectIdentifier(webView)] {
+                return servicesByID[popupServiceID]
+            }
             return nil
         }
 
@@ -613,15 +704,26 @@ extension BrowserSessionController: WKUIDelegate {
         for navigationAction: WKNavigationAction,
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
-        if let url = navigationAction.request.url {
-            popupRequest = URLRequest(url: url)
-            webView.load(URLRequest(url: url))
+        guard let service = service(for: webView) else {
+            return nil
         }
-        return nil
+
+        if openAuthenticationPopupsExternally,
+           let url = navigationAction.request.url {
+            NSWorkspace.shared.open(url)
+            return nil
+        }
+
+        closePopup()
+        return makePopupWebView(service: service, configuration: configuration)
     }
 
     func webViewDidClose(_ webView: WKWebView) {
-        webView.stopLoading()
+        if popupSession?.webView === webView {
+            closePopup()
+        } else {
+            webView.stopLoading()
+        }
     }
 
     func webView(

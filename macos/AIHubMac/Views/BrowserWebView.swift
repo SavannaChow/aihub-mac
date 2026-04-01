@@ -17,3 +17,13 @@ struct BrowserWebView: NSViewRepresentable {
         nsView.allowsBackForwardNavigationGestures = appModel.settings.allowBackForwardNavigationGestures
     }
 }
+
+struct ExistingWebViewContainer: NSViewRepresentable {
+    let webView: WKWebView
+
+    func makeNSView(context: Context) -> WKWebView {
+        webView
+    }
+
+    func updateNSView(_ nsView: WKWebView, context: Context) {}
+}

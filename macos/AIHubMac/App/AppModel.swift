@@ -21,6 +21,7 @@ final class AppModel: ObservableObject {
         didSet {
             UserDefaultsStore.save(settings: settings)
             browser.openLinksInDefaultBrowser = settings.openLinksInDefaultBrowser
+            browser.openAuthenticationPopupsExternally = settings.openAuthenticationPopupsExternally
             browser.allowBackForwardNavigationGestures = settings.allowBackForwardNavigationGestures
             browser.suspendWhenBackgrounded = settings.suspendWhenBackgrounded
             browser.keepSingleActiveWebView = settings.keepSingleActiveWebView
@@ -60,6 +61,7 @@ final class AppModel: ObservableObject {
             ?? "chatgpt"
 
         browser.openLinksInDefaultBrowser = settings.openLinksInDefaultBrowser
+        browser.openAuthenticationPopupsExternally = settings.openAuthenticationPopupsExternally
         browser.allowBackForwardNavigationGestures = settings.allowBackForwardNavigationGestures
         browser.suspendWhenBackgrounded = settings.suspendWhenBackgrounded
         browser.keepSingleActiveWebView = settings.keepSingleActiveWebView
@@ -175,6 +177,14 @@ final class AppModel: ObservableObject {
     func updateCommandEnterToSend(_ enabled: Bool) {
         settings.useCommandEnterToSend = enabled
         browser.refreshCommandEnterBehavior()
+    }
+
+    func updateOpenAuthenticationPopupsExternally(_ enabled: Bool) {
+        settings.openAuthenticationPopupsExternally = enabled
+    }
+
+    func enablePasskeysAndTouchID() {
+        browser.requestPasskeyAuthorization()
     }
 
     func cycleService(offset: Int) {

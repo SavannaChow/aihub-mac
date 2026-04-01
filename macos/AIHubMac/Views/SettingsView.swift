@@ -33,6 +33,30 @@ struct SettingsView: View {
                 .textFieldStyle(.roundedBorder)
             }
 
+            Section("Authentication") {
+                Toggle(
+                    "Open authentication popups in default browser",
+                    isOn: externalAuthenticationBinding
+                )
+
+                HStack {
+                    Text("Touch ID / Passkeys")
+                    Spacer()
+                    Text(passkeyStatusText)
+                        .foregroundStyle(.secondary)
+                }
+
+                if appModel.browser.passkeyAuthorizationState != .authorized {
+                    Button("Enable Touch ID / Passkeys") {
+                        appModel.enablePasskeysAndTouchID()
+                    }
+                }
+
+                Text("In-app authentication opens login popups inside this app. External authentication sends login popups to your default browser, which can be more compatible with some providers. Touch ID works only when the site supports passkeys and the browser credential permission is granted.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Shortcuts") {
                 ShortcutEditorView(
                     title: "Next AI service",
@@ -134,6 +158,24 @@ struct SettingsView: View {
             get: { appModel.settings.useCommandEnterToSend },
             set: { appModel.updateCommandEnterToSend($0) }
         )
+    }
+
+    private var externalAuthenticationBinding: Binding<Bool> {
+        Binding(
+            get: { appModel.settings.openAuthenticationPopupsExternally },
+            set: { appModel.updateOpenAuthenticationPopupsExternally($0) }
+        )
+    }
+
+    private var passkeyStatusText: String {
+        switch appModel.browser.passkeyAuthorizationState {
+        case .authorized:
+            return "Enabled"
+        case .denied:
+            return "Denied"
+        case .notDetermined:
+            return "Not Enabled"
+        }
     }
 
     private func clearCacheOnly() {
