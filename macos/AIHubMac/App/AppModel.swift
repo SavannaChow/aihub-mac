@@ -316,16 +316,6 @@ final class AppModel: ObservableObject {
                 return nil
             }
 
-            if event.keyCode == 124 {
-                self.cycleService(offset: 1)
-                return nil
-            }
-
-            if event.keyCode == 123 {
-                self.cycleService(offset: -1)
-                return nil
-            }
-
             return event
         }
     }
